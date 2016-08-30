@@ -1,11 +1,10 @@
-'use strict';
+import { Router } from 'express';
+const router = Router();
 
-let express = require('express');
-let router = express.Router();
 
 /* GET users listing. */
 router.get('/', (req, res, next) => {
-  res.send('respond with a resource 9');
+  res.send('respond with a resource 1');
 });
 
-module.exports = router;
+export default router;
