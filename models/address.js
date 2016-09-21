@@ -6,9 +6,14 @@ module.exports = function(sequelize, DataTypes) {
     city: DataTypes.STRING,
     state: DataTypes.STRING
   }, {
+    freezeTableName: true,
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        address.belongsTo(models.client, {
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          constraints: false
+        })
       }
     }
   });

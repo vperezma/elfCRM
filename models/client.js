@@ -8,9 +8,19 @@ module.exports = function(sequelize, DataTypes) {
     phoneNumber: DataTypes.STRING,
     email: DataTypes.STRING
   }, {
+    freezeTableName: true,
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        client.hasMany(models.address, {
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          constraints: false
+        }),
+        this.hasMany(models.appointment,{
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          constraints: false
+        })
       }
     }
   });

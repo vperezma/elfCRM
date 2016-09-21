@@ -3,9 +3,14 @@ module.exports = function(sequelize, DataTypes) {
   var categories = sequelize.define('categories', {
     categoryName: DataTypes.STRING
   }, {
+    freezeTableName: true,
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        categories.hasMany(models.appointment,{
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          constraints: false
+        })
       }
     }
   });

@@ -5,6 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     lastName: DataTypes.STRING,
     isAdmin: DataTypes.BOOLEAN
   }, {
+    freezeTableName: true,
     classMethods: {
       associate: function(models) {
         user.belongsToMany(models.roles,{
@@ -12,6 +13,12 @@ module.exports = function(sequelize, DataTypes) {
           constraints: false,
           OnDelete: 'CASCADE',
           OnUpdate: 'CASCADE'
+        }),
+        user.belongsToMany(models.appointment,{
+          through: 'appointmentUser',
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
+          constraints: false
         })
       }
     }

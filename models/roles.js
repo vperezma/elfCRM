@@ -3,6 +3,7 @@ module.exports = function(sequelize, DataTypes) {
   var roles = sequelize.define('roles', {
     name: DataTypes.STRING
   }, {
+    freezeTableName: true,
     classMethods: {
       associate: function(models) {
         roles.belongsToMany(models.user,{
