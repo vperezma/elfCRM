@@ -8,6 +8,10 @@ import cookieParser  from 'cookie-parser';
 import bodyParser    from 'body-parser';
 import routes        from './routes/index';
 import users         from './routes/users';
+import models        from './models';
+import allRoutes     from './routes/api';
+
+
 
 const app = express();
 
@@ -23,8 +27,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+// app.use('/', routes);
+// app.use('/users', users);
+
+allRoutes(app);
+
+
+models.sequelize
+  //You can set `force` to `true` in development mode to clear db
+  .sync({
+    
+    force: false,
+    logging: console.log
+  
+  })
+  .then(function() {
+    try {
+      require('./bootstrap')(models);
+    } catch(err) {}
+
+  });
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
