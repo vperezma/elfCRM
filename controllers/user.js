@@ -1,7 +1,9 @@
 const models = require('../models');
 import path from 'path';
+import bcrypt from 'bcrypt';
 const User = models.user;
 const Role = models.roles;
+
 function handleError(err){
   return err;
 }
@@ -38,7 +40,7 @@ function handleError(err){
             })
             .catch(handleError);
    },
-   
+
    update: (req, res) => {
        User.findOne({where: {id: req.params.userId}})
             .then((userFound) => {

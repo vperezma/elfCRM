@@ -36,7 +36,6 @@ allRoutes(app);
 models.sequelize
   //You can set `force` to `true` in development mode to clear db
   .sync({
-    
     force: false,
     logging: console.log
   
