@@ -10,7 +10,7 @@ import routes        from './routes/index';
 import users         from './routes/users';
 import models        from './models';
 import allRoutes     from './routes/api';
-
+import cors          from './modules/cors';
 
 
 const app = express();
@@ -26,6 +26,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors);
 
 // app.use('/', routes);
 // app.use('/users', users);

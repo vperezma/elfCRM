@@ -1,6 +1,7 @@
 const models = require('../models');
 import path from 'path';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 const User = models.user;
 const Role = models.roles;
 
@@ -8,13 +9,21 @@ function handleError(err){
   return err;
 }
  module.exports =  {
+
+     getbyEmail: (req, res) => {
+         User.findOne({where:{email: req.body.email}})
+         .then((user)=>{
+             const token = jwt.sign({user:user},"asdd",{expiresIn:'10h'});
+              res.json({token:token});
+            });
+     },
    getAll: (req, res) => {
-       User.findAll({})
+       User.findAll({include:[{model:Role}]})
         .then((users) => res.json(users))
         .catch(handleError);
    },
    getById: (req, res) => {
-       User.findOne({where: {id: req.params.userId}})
+       User.findOne({where: {id: req.params.userId}, include: [{model: Role}]})
             .then((user) => res.json(user))
             .catch(handleError);
    },
